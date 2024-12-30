@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | المطور المحترف</title>
+    <style>
+        :root {
+            --primary: #00D1B2;
+            --dark: #1A1A1A;
+            --light: #FFFFFF;
+            --gray: #2D2D2D;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        body {
+            background: var(--dark);
+            color: var(--light);
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(45deg, var(--primary), #009688);
+            border-bottom: 2px solid var(--primary);
+        }
+
+        .header-content h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+            font-weight: bold;
+            animation: slideIn 1s ease;
+        }
+
+        .header-content p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: var(--light);
+            animation: slideIn 1s ease 0.3s backwards;
+        }
+
+        .languages {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .languages select {
+            padding: 10px;
+            background: var(--gray);
+            color: var(--light);
+            border: none;
+            border-radius: 5px;
+        }
+
+        .visitor-count {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: var(--primary);
+            color: var(--dark);
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            z-index: 100;
+            transition: opacity 0.3s;
+        }
+
+        /* Hide the visitor count when scrolling down */
+        .hidden {
+            visibility: hidden;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .skills {
+            padding: 100px 0;
+            background: var(--gray);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .skill-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 15px;
+            transition: transform 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: var(--primary);
+            animation: progress 1.5s ease;
+        }
+
+        .social {
+            padding: 100px 0;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        .social-button {
+            background: var(--gray);
+            color: var(--light);
+            padding: 1rem 2rem;
+            border-radius: 30px;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: 0.3s;
+        }
+
+        .social-button:hover {
+            background: var(--primary);
+        }
+
+        .to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: 0.3s;
+        }
+
+        .to-top:hover {
+            transform: scale(1.1);
+        }
+
+        .profile-info {
+            background: var(--gray);
+            padding: 2rem;
+            margin-top: 50px;
+            border-radius: 10px;
+        }
+
+        .profile-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .profile-info p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="languages">
+        <select onchange="changeLanguage(event)">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="es">Español</option>
+        </select>
+    </div>
+
+    <!-- Visitor Count Display -->
+    <div class="visitor-count" id="visitor-count">عدد الزوار: 0</div>
+
+    <header>
+        <div class="container header-content">
+            <h1 id="header-name">مرحباً، أنا Azure</h1>
+            <p id="header-description">مطور برمجيات متخصص في تطوير الويب وبوتات Discord</p>
+        </div>
+    </header>
+
+    <section class="skills">
+        <div class="container">
+            <div class="title">
+                <h2 id="skills-title">مهاراتي</h2>
+            </div>
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <h3>تطوير الويب</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Discord.js</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 95%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Python</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Java</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>HTML</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 100%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>CSS</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>Node.js</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 80%"></div>
+                    </div>
+                </div>
+                <div class="skill-card">
+                    <h3>React.js</h3>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social">
+        <div class="container">
+            <div class="title">
+                <h2 id="contact-title">تواصل معي</h2>
+            </div>
+            <div class="social-links">
+                <a href="https://discord.gg/Xiona" class="social-button" id="discord-button">Discord 🎮</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- معلومات شخصية -->
+    <section class="profile-info">
+        <div class="container">
+            <h3>معلومات عني</h3>
+            <p><strong>إيدي ديسكورد:</strong> 939561307173191691</p>
+            <p><strong>اسم ديسكورد:</strong> Azure</p>
+            <p><strong>يوزر ديسكورد:</strong> bxz_</p>
+            <p><strong>العمر:</strong> 16 سنة</p>
+            <p><strong>البلد:</strong> سوريا</p>
+        </div>
+    </section>
+
+    <button class="to-top" onclick="scrollToTop()">↑</button>
+
+    <script>
+        const translations = {
+            ar: {
+                "header-name": "مرحباً، أنا [اسمك]",
+                "header-description": "مطور برمجيات متخصص في تطوير الويب وبوتات Discord",
+                "skills-title": "مهاراتي",
+                "web-development": "تطوير الويب",
+                "discord-js": "Discord.js",
+                "python": "Python",
+                "contact-title": "تواصل معي",
+                "discord-button": "Discord 🎮"
+            },
+            en: {
+                "header-name": "Hello, I'm [Your Name]",
+                "header-description": "Software developer specialized in web development and Discord bots",
+                "skills-title": "My Skills",
+                "web-development": "Web Development",
+                "discord-js": "Discord.js",
+                "python": "Python",
+                "contact-title": "Contact Me",
+                "discord-button": "Discord 🎮"
+            },
+            fr: {
+                "header-name": "Bonjour, je suis [Votre Nom]",
+                "header-description": "Développeur de logiciels spécialisé dans le développement web et les bots Discord",
+                "skills-title": "Mes compétences",
+                "web-development": "Développement Web",
+                "discord-js": "Discord.js",
+                "python": "Python",
+                "contact-title": "Contactez-moi",
+                "discord-button": "Discord 🎮"
+            },
+            es: {
+                "header-name": "Hola, soy [Tu Nombre]",
+                "header-description": "Desarrollador de software especializado en desarrollo web y bots de Discord",
+                "skills-title": "Mis habilidades",
+                "web-development": "Desarrollo web",
+                "discord-js": "Discord.js",
+                "python": "Python",
+                "contact-title": "Contáctame",
+                "discord-button": "Discord 🎮"
+            }
+        };
+
+        let visitorCount = parseInt(localStorage.getItem("visitorCount") || "0");
+        visitorCount++;
+        localStorage.setItem("visitorCount", visitorCount);
+        document.getElementById("visitor-count").textContent = `عدد الزوار: ${visitorCount}`;
+
+        // Hide visitor count on scroll down
+        let lastScrollTop = 0;
+        window.addEventListener("scroll", () => {
+            const visitorCountElement = document.getElementById("visitor-count");
+            if (window.scrollY > lastScrollTop) {
+                visitorCountElement.classList.add("hidden");
+            } else {
+                visitorCountElement.classList.remove("hidden");
+            }
+            lastScrollTop = window.scrollY <= 0 ? 0 : window.scrollY;
+        });
+
+        function changeLanguage(event) {
+            const lang = event.target.value;
+            const selectedLang = translations[lang];
+            for (const key in selectedLang) {
+                document.getElementById(key).textContent = selectedLang[key];
+            }
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
